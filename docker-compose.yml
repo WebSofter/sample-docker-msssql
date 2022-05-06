@@ -1,0 +1,28 @@
+version: "3.4"
+services:
+  doska_mssql:
+    container_name: doska_mssql
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    #hostname: doska.kupeyka.com
+    ports:
+      - "1433:1433"
+      #- "5022:5022"
+    env_file: .env
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: secret
+      MSSQL_PID: Express
+      #MSSQL_TCP_PORT: 1433
+      #MSSQL_IP_ADDRESS: 0.0.0.0
+
+    #volumes:
+    #  - "./docker/mssql/data:/var/lib/mssqlql/data"
+    # networks:
+    #   - doska-network
+
+# volumes:
+#   doska_mssql:
+#     driver: local
+
+volumes:
+  nopcommerce_data:  
