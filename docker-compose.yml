@@ -15,14 +15,10 @@ services:
       #MSSQL_TCP_PORT: 1433
       #MSSQL_IP_ADDRESS: 0.0.0.0
 
-    #volumes:
-    #  - "./docker/mssql/data:/var/lib/mssqlql/data"
-    # networks:
-    #   - doska-network
-
-# volumes:
-#   doska_mssql:
-#     driver: local
+    volumes:
+      - "mssql_data:/var/lib/mssqlql/data"
 
 volumes:
-  nopcommerce_data:  
+    mssql_data:
+        driver: local
+        name: mssql_data

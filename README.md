@@ -1,8 +1,17 @@
 For Connect
 ```Server=doska.kupeyka.com,1433;Database=doska;User=sa;Password=secret;```
 
-For Imprt dump
-`docker exec -i some-mysql sh -c 'exec mysql -uuser -ppassword database' < /some/path/on/your/host/all-databases.sql`
+# Backup the data volume
+docker run --rm \
+       -v sqldata:/sqldata \
+       -v $pwd\:/backup \
+       ubuntu tar cvf /backup/backup.tar /sqldata
 
-For export dump
-`docker exec some-mysql sh -c 'exec mysqldump --all-databases -uuser -ppassword database' > /some/path/on/your/host/all-databases.sql`
+# Remove existing data volume (clear up old data, if exists)
+docker volume rm sqldata
+
+# Restore the data volume
+docker run --rm \
+       -v sqldata:/sqldata \
+       -v $pwd\:/backup \
+       ubuntu tar xvf /backup/backup.tar -C sqldata --strip 1
